@@ -1,0 +1,4 @@
+version: '2'
+services:
+  ba6ceeb952c3:
+    image: 'sha256:ba6ceeb952c36c3194438a3cea5825a00cd5d24f5d407b1482a73823fc2ef252'
