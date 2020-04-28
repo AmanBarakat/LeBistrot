@@ -19,7 +19,6 @@ class Navbar extends Component{
             <li><a href="/">Home</a></li>
             <li><a href="/recepies">Recettes</a></li>
             <li><a href="/admin">Admin</a></li>
-            <li><a href="/contact">Contact</a></li>
           </ul>
         </div>
       </div>

@@ -32,15 +32,16 @@ class Today_menu extends Component{
 						 <h2>{plat.name}</h2>
 							 <div className="panel-body">
 								 <img src={plat.image} className="img-responsive img-thumbnail" alt="our menu today" />
-								 <ul className="menu-info nav navbar-nav">
-										 <li><img src={logo}  className="img-responsive img-circle author-menu" alt="our best restourant" /></li>
-									 <li><h3><em>Price: $ {plat.price} </em></h3></li>
-									 <i class="fa fa-star" aria-hidden="true"></i>
-									 <i class="fa fa-star" aria-hidden="true"></i>
-									 <i class="fa fa-star" aria-hidden="true"></i>
-									 <i class="fa fa-star" aria-hidden="true"></i>
-									 <i class="fa fa-star" aria-hidden="true"></i>
-								 </ul>
+								 <div className="">
+									<div className="centered">
+										 <i class="fa fa-star" aria-hidden="true"></i>
+										 <i class="fa fa-star" aria-hidden="true"></i>
+										 <i class="fa fa-star" aria-hidden="true"></i>
+										 <i class="fa fa-star" aria-hidden="true"></i>
+										 <i class="fa fa-star" aria-hidden="true"></i>
+									 </div>
+									 <div><h3><em>Price: $ {plat.price} </em></h3></div>
+								 </div>
 							 </div>
 					 </div>
 				 </div>

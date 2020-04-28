@@ -90,9 +90,16 @@
 .img-responsive{
   width: 100%;
 }
-.platTitle{
-  display: flex;
-  align-items: center;
+.panel-body .img-thumbnail{
+  height: 400px;
+  object-fit: cover;
+  margin-bottom: 14px;
+}
+.panel-body h3{
+  margin-top: 30px;
+}
+.panel-body .centered{
+  text-align: center;
 }
 .platTitle>h3{
   margin: 0;
@@ -169,6 +176,7 @@
   padding-bottom: 30px;
 }
 .flexContainer{
+  flex-wrap: wrap;
   display: flex;
 }
 .flexContainer .m-input-moment{
@@ -251,6 +259,10 @@ select{
   display: inline-block;
   vertical-align: middle;
   }
+.form-style-1 textarea[name=instructions]{
+  width: 100%;
+height: 192px;
+}
 .form-style-1 input[type=text]:focus,
 .form-style-1 input[type=date]:focus,
 .form-style-1 input[type=datetime]:focus,
@@ -309,6 +321,7 @@ select{
 }
 .pageAdmin{
   padding:32px 256px;
+  min-height: 100vh;
   background-color: #eee;
 }
 .pageAdmin h1{
@@ -319,5 +332,93 @@ select{
 .rowAdmin{
   display: flex;
   width: 100%;
+  justify-content: space-between;
+}
+.recettePhoto{
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+.platCol{
+  width: calc(((100% - 96px) / 3));
+  margin-bottom: 24px;
+}
+.noMarg{
+  margin-top: 0;
+}
+.bgWhite{
+  background-color: #fff;
+  padding-bottom: 48px;
+}
+button.save{
+  display: inline-block;
+  min-width: 150px;
+  margin: 20px auto;
+  background: #8BC34A;
+  color: #fefefe;
+  font-size: 1.2em;
+  padding: 10px 7px;
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+}
+button.save.small {
+    padding: 0;
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 12px;
+    padding: 6px;
+    min-width: 60px;
+}
+button.edit,button.delete{
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  color: #fefefe;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  padding: 0;
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 6px;
+  min-width: 60px;
+}
+button.edit{
+  background-color: #e7e7e7; color: black;
+}
+button.addIng.small{
+  margin-left: 0;
+  margin-top: 10px;
+}
+button.delete{
+  background-color: #fa8072;
+  margin-left: 12px;
+}
+button.add{
+  margin:0 auto;
+  margin-bottom: 16px;
+  display: block;
+  background: #8BC34A;
+  color: #fefefe;
+  font-size: 1.8em;
+  padding: 15px 15px;
+  border-radius: 4px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+}
+.spaceBetween{
   justify-content: space-between;
 }

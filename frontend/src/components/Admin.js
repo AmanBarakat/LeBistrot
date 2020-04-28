@@ -19,9 +19,11 @@ class Admin extends Component {
           <h2 className={this.state.tab==="recepies"?"active":""} onClick={()=>{this.setState({tab:"recepies"})}}>Manage Recepies</h2>
           <h2 className={this.state.tab==="reservations"?"active":""} onClick={()=>{this.setState({tab:"reservations"})}}>Manage Reservations</h2>
         </div>
+        <div className="bgWhite">
            {this.state.tab==="menu"?<ManageMenu />:''}
            {this.state.tab==="recepies"?<ManageRecepies />:''}
            {this.state.tab==="reservations"?<ManageBookings />:''}
+         </div>
       </div>
     );
   }

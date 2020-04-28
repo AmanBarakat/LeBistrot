@@ -69,31 +69,34 @@ class ManageRecepies extends Component {
   }
   renderRecette(recette){
     return(
-      <div className="platRow">
-        {recette.name}
-        {this.renderFields(recette)}
-        <button type="button" onClick={()=>this.setState({update:recette._id,ingredients:recette.ingredients,temps:recette.temps,personnes:recette.personnes,name:recette.name,instructions:recette.instructions})}> Edit </button>
-        <button type="button" onClick={()=>this.delete(recette._id)}> Delete </button>
+      <div className="platCol">
+          <div>
+            <img src={recette.image} alt="recette" className="recettePhoto"/>
+          </div>
+          <h2>{recette.name}</h2>
+          {this.renderFields(recette)}
+          {this.state.update.length?"":<div><button type="button" className="edit" onClick={()=>this.setState({update:recette._id,ingredients:recette.ingredients,temps:recette.temps,personnes:recette.personnes,image:recette.image,name:recette.name,instructions:recette.instructions})}> Edit </button>
+          <button type="button" className="delete" onClick={()=>this.delete(recette._id)}> Delete </button></div>}
       </div>
     )
   }
   renderIngredients(recette){
     let a=[];
     recette.ingredients.forEach((ingredient)=>{
-      a.push(
-        <div className="ingredientRow">
-          {ingredient}
-        </div>
-      )
+      a.push(<div>{ingredient}</div>)
     })
-    return a;
+    return (
+      <div className="inputRow">
+        <label>Ingredients:</label>
+        {a}
+      </div>
+    );
   }
   renderAddNewIngredient(){
     return(
-      <div>
+      <div className="flexContainer">
         <input name="newIngredient" type="text" value={this.state.newIngredient} onChange={(e)=>this.setState({newIngredient:e.target.value})}/>
-        <button type="button" onClick={()=>this.setState({addingNewIngredient:false})}> Cancel </button>
-        <button type="button" onClick={()=>{
+        <button type="button" className="save small" onClick={()=>{
           this.state.ingredients.push(this.state.newIngredient);
           this.setState({addingNewIngredient:false,newIngredient:""})
         }}> Save </button>
@@ -106,27 +109,26 @@ class ManageRecepies extends Component {
         <div>
           <form>
             <div className="inputRow">
-              <div>Temps:</div>
+              <label>Temps:</label>
               <input name="temps" type="text" value={this.state.temps} onChange={(e)=>this.setState({temps:e.target.value})}/>
             </div>
             <div className="inputRow">
-              <div>Personnes:</div>
+              <label>Personnes:</label>
               <input name="personnes" type="text" value={this.state.personnes} onChange={(e)=>this.setState({personnes:e.target.value})}/>
             </div>
             <div className="inputRow">
-              <div>Photo:</div>
+              <label>Photo:</label>
               <input name="image" type="text" value={this.state.image} onChange={(e)=>this.setState({image:e.target.value})}/>
             </div>
             {this.renderIngredients(recette)}
-            {this.state.addingNewIngredient?"":<button type="button" onClick={()=>this.setState({addingNewIngredient:true})}>Add ingredient</button>}
+            {this.state.addingNewIngredient?"":<button type="button" className="save small addIng" onClick={()=>this.setState({addingNewIngredient:true})}>Add ingredient</button>}
             {this.state.addingNewIngredient?this.renderAddNewIngredient(recette):""}
             <div className="inputRow">
-              <div>Instructions:</div>
+              <label>Instructions:</label>
               <textarea name="instructions" value={this.state.instructions} onChange={(e)=>this.setState({instructions:e.target.value})}/>
             </div>
           </form>
-          <button type="button" onClick={()=>this.setState({update:""})}> Cancel </button>
-          <button type="button" onClick={()=>this.modifyRecette()}> Save </button>
+          <button type="button" className="save" onClick={()=>this.modifyRecette()}> Save changes </button>
         </div>
       )
     }
@@ -135,34 +137,34 @@ class ManageRecepies extends Component {
     if(this.state.addNew){
       return(
         <div>
-          <form>
+          <form className="form-style-1">
+          <h2>New recepie:</h2>
             <div className="inputRow">
-              <div>Name:</div>
+              <label>Name:</label>
               <input name="name" type="text" value={this.state.name} onChange={(e)=>this.setState({name:e.target.value})}/>
             </div>
             <div className="inputRow">
-              <div>Photo:</div>
+              <label>Photo:</label>
               <input name="image" type="text" value={this.state.image} onChange={(e)=>this.setState({image:e.target.value})}/>
             </div>
             <div className="inputRow">
-              <div>Temps:</div>
+              <label>Temps:</label>
               <input name="temps" type="text" value={this.state.temps} onChange={(e)=>this.setState({temps:e.target.value})}/>
             </div>
             <div className="inputRow">
-              <div>Personnes:</div>
+              <label>Personnes:</label>
               <input name="personnes" type="text" value={this.state.personnes} onChange={(e)=>this.setState({personnes:e.target.value})}/>
             </div>
             <div className="inputRow">
-              <div>Ingredients: (one by line)</div>
+              <label>Ingredients: (one by line)</label>
               <textarea name="ingredients" type="text" value={this.state.ingredientsText} onChange={(e)=>this.setState({ingredientsText:e.target.value})}/>
             </div>
             <div className="inputRow">
-              <div>Instructions:</div>
+              <label>Instructions:</label>
               <textarea name="instructions"value={this.state.instructions} onChange={(e)=>this.setState({instructions:e.target.value})}/>
             </div>
+            <button type="button" className="save" onClick={()=>this.addRecette()}> Save </button>
           </form>
-          <button type="button" onClick={()=>this.setState({addNew:false})}> Cancel </button>
-          <button type="button" onClick={()=>this.addRecette()}> Save </button>
         </div>
       )
     }
@@ -175,8 +177,8 @@ class ManageRecepies extends Component {
       })
       return (
         <div>
-          <div>{a}</div>
-          {this.state.addNew?'':<button type="button" onClick={()=>this.setState({addNew:true,update:"",temps:"",image:"",ingredients:[],instructions:"",personnes:"",name:""})}> Add </button>}
+          <div className="flexContainer  form-style-1 spaceBetween">{a}</div>
+          {this.state.addNew?'':<button type="button" className="add" onClick={()=>this.setState({addNew:true,update:"",temps:"",image:"",ingredients:[],instructions:"",personnes:"",name:""})}> Add new recepie</button>}
           {this.renderNewRecette()}
         </div>
       );
