@@ -1,26 +1,38 @@
 package Bistrot.Reservation.models;
 
-
 import java.util.Date;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "reservation")
 public class Reservation {
-  @Id
-  public ObjectId _id;
-  
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true)
+
+  public long id;
+  @Column
   public String name;
+  @Column
   public Date date;
+  @Column
   public String personnes;
+  @Column
   public String type;
+  @Column
   public String time;
   
   // Constructors
   public Reservation() {}
   
-  public Reservation(ObjectId _id, String name, Date date, String personnes, String time, String type) {
-    this._id = _id;
+  public Reservation(long id, String name, Date date, String personnes, String time, String type) {
+    this.id = id;
     this.name = name;
     this.date = date;
     this.time = time;
@@ -28,10 +40,15 @@ public class Reservation {
     this.type = type;
   }
   
-  // ObjectId needs to be converted to string
-  public String get_id() { return _id.toHexString(); }
-  public void set_id(ObjectId _id) { this._id = _id; }
-  
+  // long needs to be converted to string
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+      public long getId() {
+      return id;
+  }
+  public void setId(long id) {
+      this.id = id;
+  }
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
   

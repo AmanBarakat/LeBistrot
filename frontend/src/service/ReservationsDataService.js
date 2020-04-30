@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const RESERVATIONS_API_URL = 'http://localhost:8080/reservation'
+const RESERVATIONS_API_URL = 'http://zuul.localhost/reservation'
 
 class ReservationsDataService {
 

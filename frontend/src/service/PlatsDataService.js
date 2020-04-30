@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const PLATS_API_URL = 'http://localhost:8080/menu'
+const PLATS_API_URL = 'http://zuul.localhost/menu'
 
 class PlatsDataService {
 

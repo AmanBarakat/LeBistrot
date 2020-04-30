@@ -1,11 +1,13 @@
 package Bistrot.Reservation.repositories;
 
 
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import Bistrot.Reservation.models.Reservation;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
 
-public interface ReservationRepository extends MongoRepository<Reservation, String> {
-	Reservation findBy_id(ObjectId _id);
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+	Optional<Reservation> findById(Long id);
 }

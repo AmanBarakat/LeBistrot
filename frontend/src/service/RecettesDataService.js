@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const RECETTES_API_URL = 'http://localhost:8080/recette'
+const RECETTES_API_URL = 'http://zuul.localhost/recette'
 
 class RecettesDataService {
 

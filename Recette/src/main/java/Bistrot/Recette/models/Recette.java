@@ -1,25 +1,38 @@
 package Bistrot.Recette.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 
+@Entity
+@Table(name = "recette")
 public class Recette {
-  @Id
-  public ObjectId _id;
-  
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true)
+  public long id;
+  @Column
   public String name;
+  @Column
   public String temps;
+  @Column
   public String personnes;
+  @Column
   public String image;
+  @Column
   public String instructions;
+  @Column
   public String[] ingredients;
   
   // Constructors
   public Recette() {}
   
-  public Recette(ObjectId _id, String name, String temps, String personnes, String image, String[] ingredients, String instructions) {
-    this._id = _id;
+  public Recette(long id, String name, String temps, String personnes, String image, String[] ingredients, String instructions) {
+    this.id = id;
     this.name = name;
     this.temps = temps;
     this.image = image;
@@ -28,10 +41,15 @@ public class Recette {
     this.instructions = instructions;
   }
   
-  // ObjectId needs to be converted to string
-  public String get_id() { return _id.toHexString(); }
-  public void set_id(ObjectId _id) { this._id = _id; }
-  
+  // long needs to be converted to string
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+      public long getId() {
+      return id;
+  }
+  public void setId(long id) {
+      this.id = id;
+  }
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
   
@@ -48,5 +66,5 @@ public class Recette {
   public void setIngredients(String[] ingredients) { this.ingredients = ingredients; }
   
   public String getImage() { return image; }
-  public void setBreed(String image) { this.image= image; }
+  public void setImage(String image) { this.image= image; }
 }

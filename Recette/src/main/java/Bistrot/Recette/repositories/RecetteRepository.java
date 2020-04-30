@@ -1,11 +1,15 @@
 package Bistrot.Recette.repositories;
 
 
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import Bistrot.Recette.models.Recette;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
+@Repository
+public interface RecetteRepository extends JpaRepository<Recette, Long> {
 
-public interface RecetteRepository extends MongoRepository<Recette, String> {
-  Recette findBy_id(ObjectId _id);
 }

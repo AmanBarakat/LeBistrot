@@ -2,10 +2,12 @@ package Bistrot.Menu.repositories;
 
 
 import Bistrot.Menu.models.Plats;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface PlatsRepository extends MongoRepository<Plats, String> {
-  Plats findBy_id(ObjectId _id);
+public interface PlatsRepository extends JpaRepository<Plats, Long> {
+  Optional<Plats> findById(Long id);
 }

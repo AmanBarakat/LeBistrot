@@ -52,14 +52,14 @@ class ManageMenu extends Component {
       <div className="platCol">
           <img className="recettePhoto" src={plat.image} alt="plat"/>
           <h3>{plat.name}</h3>
-          <button type="button" className="edit" onClick={()=>this.setState({update:plat._id,name:plat.name,price:plat.price,image:plat.image})}> Edit </button>
-          <button type="button" className="delete" onClick={()=>this.delete(plat._id)}> Delete </button>
+          <button type="button" className="edit" onClick={()=>this.setState({update:plat.id,name:plat.name,price:plat.price,image:plat.image})}> Edit </button>
+          <button type="button" className="delete" onClick={()=>this.delete(plat.id)}> Delete </button>
         {this.renderFields(plat)}
       </div>
     )
   }
   renderFields(plat){
-    if(this.state.update===plat._id){
+    if(this.state.update===plat.id){
       return(
         <div>
           <form>
@@ -113,11 +113,21 @@ class ManageMenu extends Component {
       })
       return (
         <div>
-          <div className="flexContainer form-style-1 spaceBetween">{a}</div>
+        <div className="flexContainer form-style-1 spaceBetween">{a}</div><div className="flexContainer form-style-1 spaceBetween">{a}</div>
           {this.state.addNew?'':<button type="button" className="add" onClick={()=>this.setState({addNew:true,update:"",name:"",price:"",image:""})}> Add more to menu </button>}
           {this.renderNewPlat()}
         </div>
       );
+    }
+    else{
+      return(
+
+          <div>
+
+            {this.state.addNew?'':<button type="button" className="add" onClick={()=>this.setState({addNew:true,update:"",name:"",price:"",image:""})}> Add more to menu </button>}
+            {this.renderNewPlat()}
+          </div>
+        );
     }
   }
   render() {
