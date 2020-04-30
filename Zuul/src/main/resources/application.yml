@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+zuul:
+  routes:
+    Menu:
+      path: /menu/**
+      url: http://localhost:8082/menu
+    Recette:
+      path: /recette/**
+      url: http://localhost:8081/recette
+    Reservation:
+      path: /reservation/**
+      url: http://localhost:8083/reservation

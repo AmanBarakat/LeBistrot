@@ -1,0 +1,215 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - name: front-container
+        image: amanbarakat/frontbi:latest
+        imagePullPolicy: Always
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back
+  template:
+    metadata:
+      labels:
+        app: back
+    spec:
+      containers:
+        - name: registry-container
+          image: amanbarakat/registry:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8761
+        - name: zuul-container
+          image: amanbarakat/zuul:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+        - name: recette-container
+          image: amanbarakat/recette:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8081
+        - name: menu-container
+          image: amanbarakat/menu:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8082
+        - name: reservation-container
+          image: amanbarakat/booking:latest
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8083
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: website-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/stateful_partition"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: website-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+  labels:
+    name: mongo
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  clusterIP: None
+  selector:
+    role: mongo
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: mongod
+spec:
+  serviceName: "mongodb-service"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: mongo
+        environment: test
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mongo
+          image: mongo:3.4
+          command:
+            - mongod
+            - "--replSet"
+            - rs0
+            - "--bind_ip"
+            - 0.0.0.0
+            - "--smallfiles"
+            - "--noprealloc"
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: node-pv-storage
+              mountPath: /data/db
+          env:
+            - name: MONGO_SIDECAR_POD_LABELS
+              value: "role=mongo,environment=test"
+      volumes:
+        - name: node-pv-storage
+          persistentVolumeClaim:
+            claimName: website-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-service
+spec:
+  ports:
+    - name: http
+      targetPort: 3000
+      port: 3000
+  selector:
+    app: front
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-service
+spec:
+  ports:
+    - name: registry
+      targetPort: 8761
+      port: 8761
+    - name: zuul
+      targetPort: 8080
+      port: 8080
+    - name: recette
+      targetPort: 8081
+      port: 8081
+    - name: menu
+      targetPort: 8082
+      port: 8082
+    - name: reservation
+      targetPort: 8083
+      port: 8083
+  type: ClusterIP
+  selector:
+    app: back
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: front-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+    - host: front.localhost
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: front-service
+              servicePort: http
+          - path: /recepies
+            backend:
+              serviceName: front-service
+              servicePort: http
+          - path: /reservation
+            backend:
+              serviceName: front-service
+              servicePort: http
+    - host: registry.localhost
+      http:
+        paths:
+        - backend:
+            serviceName: back-service
+            servicePort: registry
+    - host: zuul.localhost
+      http:
+        paths:
+        - backend:
+            serviceName: back-service
+            servicePort: zuul
