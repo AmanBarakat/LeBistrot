@@ -36,32 +36,40 @@ class ManageRecepies extends Component {
         }
       )
   }
-  modifyRecette(){
+  modifyRecette(close){
+    let ingred=this.state.ingredients.join(";")
     RecettesDataService.modifyRecette(this.state.update,
       {
         name:this.state.name,
+        image:this.state.image,
+        ingredients:ingred,
+        instructions:this.state.instructions,
         temps:this.state.temps,
         personnes:this.state.personnes,
-        image:this.state.image,
-        instructions:this.state.instructions,
-        ingredients:this.state.ingredients,
       })
         .then(
             response => {
-                this.setState({ update: "" },()=>this.refreshRecettes())
+                if(!close){
+                  this.setState({ update: "" },()=>this.refreshRecettes())
+                }
+                else{
+                  this.refreshRecettes()
+                }
             }
         )
   }
   addRecette(){
-    let ingredients = this.state.ingredientsText.split(/\r?\n/);
-    RecettesDataService.addRecette({
+    let ingr=this.state.ingredientsText.split("\n").join(";")
+    let recette={
       name:this.state.name,
+      image:this.state.image,
+      ingredients:ingr,
+      instructions:this.state.instructions,
       temps:this.state.temps,
       personnes:this.state.personnes,
-      image:this.state.image,
-      instructions:this.state.instructions,
-      ingredients:ingredients,
-    }).then(
+    }
+    console.log(recette);
+    RecettesDataService.addRecette(recette).then(
           response => {
               this.setState({ addNew: false },()=>this.refreshRecettes())
           }
@@ -75,14 +83,14 @@ class ManageRecepies extends Component {
           </div>
           <h2>{recette.name}</h2>
           {this.renderFields(recette)}
-          {this.state.update.length?"":<div><button type="button" className="edit" onClick={()=>this.setState({update:recette.id,ingredients:recette.ingredients,temps:recette.temps,personnes:recette.personnes,image:recette.image,name:recette.name,instructions:recette.instructions})}> Edit </button>
+          {this.state.update.length?"":<div><button type="button" className="edit" onClick={()=>this.setState({update:recette.id,ingredients:recette.ingredients.split(";"),temps:recette.temps,personnes:recette.personnes,image:recette.image,name:recette.name,instructions:recette.instructions})}> Edit </button>
           <button type="button" className="delete" onClick={()=>this.delete(recette.id)}> Delete </button></div>}
       </div>
     )
   }
-  renderIngredients(recette){
+  renderIngredients(ingredients){
     let a=[];
-    recette.ingredients.forEach((ingredient)=>{
+    ingredients.forEach((ingredient)=>{
       a.push(<div>{ingredient}</div>)
     })
     return (
@@ -97,14 +105,20 @@ class ManageRecepies extends Component {
       <div className="flexContainer">
         <input name="newIngredient" type="text" value={this.state.newIngredient} onChange={(e)=>this.setState({newIngredient:e.target.value})}/>
         <button type="button" className="save small" onClick={()=>{
-          this.state.ingredients.push(this.state.newIngredient);
-          this.setState({addingNewIngredient:false,newIngredient:""})
+          let ing=this.state.ingredients;
+          ing.push(this.state.newIngredient);
+
+          this.setState({ingredients:ing,addingNewIngredient:false,newIngredient:""},()=>{
+            this.modifyRecette(true)
+          })
         }}> Save </button>
       </div>
     )
   }
   renderFields(recette){
     if(this.state.update===recette.id){
+
+      let ingredients=recette.ingredients.split(";")
       return(
         <div>
           <form>
@@ -120,7 +134,7 @@ class ManageRecepies extends Component {
               <label>Photo:</label>
               <input name="image" type="text" value={this.state.image} onChange={(e)=>this.setState({image:e.target.value})}/>
             </div>
-            {this.renderIngredients(recette)}
+            {this.renderIngredients(ingredients)}
             {this.state.addingNewIngredient?"":<button type="button" className="save small addIng" onClick={()=>this.setState({addingNewIngredient:true})}>Add ingredient</button>}
             {this.state.addingNewIngredient?this.renderAddNewIngredient(recette):""}
             <div className="inputRow">
@@ -186,7 +200,7 @@ class ManageRecepies extends Component {
     else{
       return (
         <div>
-          {this.state.addNew?'':<button type="button" className="add" onClick={()=>this.setState({addNew:true,update:"",temps:"",image:"",ingredients:[],instructions:"",personnes:"",name:""})}> Add new recepie</button>}
+          {this.state.addNew?'':<div className="noUp"><button type="button" className="add" onClick={()=>this.setState({addNew:true,update:"",temps:"",image:"",ingredients:[],instructions:"",personnes:"",name:""})}> Add new recepie</button></div>}
           {this.renderNewRecette()}
         </div>
       );

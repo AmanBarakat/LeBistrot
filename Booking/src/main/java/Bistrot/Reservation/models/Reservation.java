@@ -1,6 +1,5 @@
 package Bistrot.Reservation.models;
 
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,24 +19,23 @@ public class Reservation {
   @Column
   public String name;
   @Column
-  public Date date;
+  public String dateres;
   @Column
   public String personnes;
   @Column
-  public String type;
+  public String typeres;
   @Column
-  public String time;
+  public String timeres;
   
   // Constructors
   public Reservation() {}
   
-  public Reservation(long id, String name, Date date, String personnes, String time, String type) {
-    this.id = id;
+  public Reservation(String name, String dateres, String personnes, String timeres, String typeres) {
     this.name = name;
-    this.date = date;
-    this.time = time;
+    this.dateres = dateres;
+    this.timeres = timeres;
     this.personnes = personnes;
-    this.type = type;
+    this.typeres = typeres;
   }
   
   // long needs to be converted to string
@@ -52,16 +50,16 @@ public class Reservation {
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
   
-  public Date getDate() { return date; }
-  public void setDate(Date date) { this.date= date; }
+  public String getDateres() { return dateres; }
+  public void setDateres(String dateres) { this.dateres= dateres; }
   
   public String getPersonnes() { return personnes; }
   public void setPersonnes(String personnes) { this.personnes = personnes; }
 
-  public String getTime() { return time; }
-  public void setTime(String time) { this.time= time; }
+  public String getTimeres() { return timeres; }
+  public void setTimeres(String timeres) { this.timeres= timeres; }
   
-  public String getType() { return type; }
-  public void setType(String type) { this.type= type; }
+  public String gettyperes() { return typeres; }
+  public void settyperes(String typeres) { this.typeres= typeres; }
   
 }

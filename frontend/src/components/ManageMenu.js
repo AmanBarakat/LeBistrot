@@ -40,7 +40,13 @@ class ManageMenu extends Component {
         )
   }
   addPlat(){
-    PlatsDataService.addPlat({name:this.state.name,price:this.state.price,image:this.state.image})
+    let plat={
+      name:this.state.name,
+      price:this.state.price,
+      image:this.state.image,
+    }
+    console.log(plat);
+    PlatsDataService.addPlat(plat)
         .then(
             response => {
                 this.setState({ addNew: false },()=>this.refreshPlats())
@@ -52,7 +58,7 @@ class ManageMenu extends Component {
       <div className="platCol">
           <img className="recettePhoto" src={plat.image} alt="plat"/>
           <h3>{plat.name}</h3>
-          <button type="button" className="edit" onClick={()=>this.setState({update:plat.id,name:plat.name,price:plat.price,image:plat.image})}> Edit </button>
+          <button type="button" className="edit" onClick={()=>this.setState({update:plat.id,addNew: false,name:plat.name,price:plat.price,image:plat.image})}> Edit </button>
           <button type="button" className="delete" onClick={()=>this.delete(plat.id)}> Delete </button>
         {this.renderFields(plat)}
       </div>
@@ -113,7 +119,7 @@ class ManageMenu extends Component {
       })
       return (
         <div>
-        <div className="flexContainer form-style-1 spaceBetween">{a}</div><div className="flexContainer form-style-1 spaceBetween">{a}</div>
+        <div className="flexContainer form-style-1 spaceBetween">{a}</div>
           {this.state.addNew?'':<button type="button" className="add" onClick={()=>this.setState({addNew:true,update:"",name:"",price:"",image:""})}> Add more to menu </button>}
           {this.renderNewPlat()}
         </div>
@@ -124,7 +130,7 @@ class ManageMenu extends Component {
 
           <div>
 
-            {this.state.addNew?'':<button type="button" className="add" onClick={()=>this.setState({addNew:true,update:"",name:"",price:"",image:""})}> Add more to menu </button>}
+            {this.state.addNew?'':<div className="noUp"><button type="button" className="add" onClick={()=>this.setState({update:"",addNew:true,update:"",name:"",price:"",image:""})}> Add more to menu </button></div>}
             {this.renderNewPlat()}
           </div>
         );

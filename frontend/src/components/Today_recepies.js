@@ -22,15 +22,16 @@ refreshRecettes() {
         )
 }
 renderIngredients(recette){
-  let ingredients=[];
-  recette.ingredients.forEach((ingredient) => {
-    ingredients.push(
+  let a=[];
+  let ingredients=recette.ingredients.split(";");
+  ingredients.forEach((ingredient) => {
+    a.push(
       <li>{ingredient}</li>
     )
   })
   return(
     <ul>
-    {ingredients}
+    {a}
     </ul>
   )
 }

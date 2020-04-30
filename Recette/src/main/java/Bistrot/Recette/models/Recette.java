@@ -26,13 +26,13 @@ public class Recette {
   @Column
   public String instructions;
   @Column
-  public String[] ingredients;
+  public String ingredients;
   
   // Constructors
   public Recette() {}
   
-  public Recette(long id, String name, String temps, String personnes, String image, String[] ingredients, String instructions) {
-    this.id = id;
+  public Recette(String name, String temps, String personnes, String image, String ingredients, String instructions) {
+
     this.name = name;
     this.temps = temps;
     this.image = image;
@@ -62,8 +62,8 @@ public class Recette {
   public String getInstructions() { return instructions; }
   public void setInstructions(String instructions) { this.instructions= instructions; }
   
-  public String[] getIngredients() { return ingredients; }
-  public void setIngredients(String[] ingredients) { this.ingredients = ingredients; }
+  public String getIngredients() { return ingredients; }
+  public void setIngredients(String ingredients) { this.ingredients = ingredients; }
   
   public String getImage() { return image; }
   public void setImage(String image) { this.image= image; }

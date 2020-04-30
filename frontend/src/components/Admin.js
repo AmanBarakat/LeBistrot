@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import ManageMenu from './ManageMenu'
 import ManageRecepies from './ManageRecepies';
 import ManageBookings from './ManageBookings';
@@ -13,6 +12,11 @@ class Admin extends Component {
   render() {
     return (
       <div className="pageAdmin">
+
+      <a href='/' className="button subscription__form__submit backhome">
+          <i className="fas fa-home"></i>
+          Back to main page
+      </a>
       <h1>Content and Booking Management</h1>
         <div className="tabs">
           <h2 className={this.state.tab==="menu"?"active":""} onClick={()=>{this.setState({tab:"menu"})}}>Manage Menu</h2>

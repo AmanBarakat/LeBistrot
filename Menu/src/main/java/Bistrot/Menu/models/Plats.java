@@ -18,15 +18,15 @@ public class Plats {
   @Column
   public String name;
   @Column
-  public Double price;
+  public String price;
   @Column
   public String image;
   
   // Constructors
   public Plats() {}
   
-  public Plats(long id, String name, Double price, String image) {
-    this.id = id;
+  public Plats( String name, String price, String image) {
+  
     this.name = name;
     this.price = price;
     this.image = image;
@@ -43,8 +43,8 @@ public class Plats {
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
   
-  public Double getPrice() { return price; }
-  public void setPrice(Double price) { this.price = price; }
+  public String getPrice() { return price; }
+  public void setPrice(String price) { this.price = price; }
   
   public String getImage() { return image; }
   public void setImage(String image) { this.image= image; }

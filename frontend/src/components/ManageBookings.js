@@ -20,7 +20,11 @@ refreshReservations(){
           }
       )
 }
-  render() {
+cutTime(time){
+ let timecut = time.slice(0, 4) + ' ' + time.substr(8,2);
+  return(timecut)
+}
+render() {
     const columns = [
   {
     name: 'Name',
@@ -29,9 +33,9 @@ refreshReservations(){
   },
   {
     name: 'Date',
-    selector: 'date',
+    selector: 'dateres',
     sortable: true,
-    cell: row => <div>{row.date.substring(0,10)}</div>,
+    cell: row => <div>{row.dateres.substring(0,10)}</div>,
   },
   {
     name: 'Personnes',
@@ -40,12 +44,13 @@ refreshReservations(){
   },
   {
     name: 'Temps',
-    selector: 'time',
+    selector: 'timeres',
     sortable: true,
+    cell: row => <div>{this.cutTime(row.timeres)}</div>,
   },
   {
     name: 'Type',
-    selector: 'type',
+    selector: 'typeres',
     sortable: true,
   },
 ];
