@@ -60,85 +60,6 @@ spec:
           - containerPort: 8083
 ---
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: website-pv-volume
-  labels:
-    type: local
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/stateful_partition"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: website-pv-claim
-spec:
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongodb-service
-  labels:
-    name: mongo
-spec:
-  ports:
-  - port: 27017
-    targetPort: 27017
-  clusterIP: None
-  selector:
-    role: mongo
----
-apiVersion: apps/v1beta1
-kind: StatefulSet
-metadata:
-  name: mongod
-spec:
-  serviceName: "mongodb-service"
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        role: mongo
-        environment: test
-    spec:
-      terminationGracePeriodSeconds: 10
-      containers:
-        - name: mongo
-          image: mongo:3.4
-          command:
-            - mongod
-            - "--replSet"
-            - rs0
-            - "--bind_ip"
-            - 0.0.0.0
-            - "--smallfiles"
-            - "--noprealloc"
-          ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: node-pv-storage
-              mountPath: /data/db
-          env:
-            - name: MONGO_SIDECAR_POD_LABELS
-              value: "role=mongo,environment=test"
-      volumes:
-        - name: node-pv-storage
-          persistentVolumeClaim:
-            claimName: website-pv-claim
----
-apiVersion: v1
 kind: Service
 metadata:
   name: front-service
@@ -213,3 +134,21 @@ spec:
         - backend:
             serviceName: back-service
             servicePort: zuul
+    - host: recette.localhost
+      http:
+        paths:
+        - backend:
+            serviceName: back-service
+            servicePort: recette
+    - host: reservation.localhost
+      http:
+        paths:
+        - backend:
+            serviceName: back-service
+            servicePort: reservation
+    - host: menu.localhost
+      http:
+        paths:
+        - backend:
+            serviceName: back-service
+            servicePort: menu

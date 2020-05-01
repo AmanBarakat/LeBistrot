@@ -1,36 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" automaticImage="JPEG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="Bistrot.Menu.models.Plats" project="Menu" 
-    file="/Menu/src/main/java/Bistrot/Menu/models/Plats.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="175" y="368"/>    
+  <class id="1" language="java" name="Bistrot.Reservation.models.Reservation" project="Reservation" 
+    file="/Reservation/src/main/java/Bistrot/Reservation/models/Reservation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="208" y="473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="Bistrot.Menu.repositories.PlatsRepository" project="Menu" 
-    file="/Menu/src/main/java/Bistrot/Menu/repositories/PlatsRepository.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="134" width="237" x="434" y="49"/>    
+  <class id="2" language="java" name="Bistrot.Reservation.controllers.ReservationController" project="Reservation" 
+    file="/Reservation/src/main/java/Bistrot/Reservation/controllers/ReservationController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1038" y="472"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="3" language="java" name="Bistrot.Reservation.repositories.ReservationRepository" project="Reservation" 
+    file="/Reservation/src/main/java/Bistrot/Reservation/repositories/ReservationRepository.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="116" width="254" x="450" y="48"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="Bistrot.Menu.controllers.PlatsController" project="Menu" 
-    file="/Menu/src/main/java/Bistrot/Menu/controllers/PlatsController.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="932" y="356"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="4" language="java" name="Bistrot.Menu.MenuApplication" project="Menu" 
-    file="/Menu/src/main/java/Bistrot/Menu/MenuApplication.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="185" width="251" x="436" y="503"/>    
+  <class id="4" language="java" name="Bistrot.Reservation.ReservationApplication" project="Reservation" 
+    file="/Reservation/src/main/java/Bistrot/Reservation/ReservationApplication.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="124" width="186" x="488" y="566"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -42,24 +45,24 @@
     <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="6">    
-    <end type="SOURCE" refId="4"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
   <association id="7">    
-    <end type="SOURCE" refId="3" navigable="false">      
+    <end type="SOURCE" refId="2" navigable="false">      
       <attribute id="8" name="repository"/>      
       <multiplicity id="9" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <dependency id="10">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="11">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

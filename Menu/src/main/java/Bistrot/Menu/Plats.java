@@ -1,4 +1,4 @@
-package Bistrot.Menu.models;
+package Bistrot.Menu;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

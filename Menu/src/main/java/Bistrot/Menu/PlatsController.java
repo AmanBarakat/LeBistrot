@@ -1,4 +1,4 @@
-package Bistrot.Menu.controllers;
+package Bistrot.Menu;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import Bistrot.Menu.models.Plats;
-import Bistrot.Menu.repositories.PlatsRepository;
+import Bistrot.Menu.Plats;
+import Bistrot.Menu.PlatsRepository;
 
 @RestController
 
@@ -23,37 +23,39 @@ import Bistrot.Menu.repositories.PlatsRepository;
 
 public class PlatsController {
   @Autowired
-  private PlatsRepository repository;
-  
+  PlatsRepository pltrep;
   @RequestMapping(value = "/menu", method = RequestMethod.GET)
   @ResponseBody
   public List<Plats> getAllPlats() {
-    return repository.findAll();
-  }
 
+    return pltrep.findAll();
+  }
+  public PlatsController(){
+
+  }
   @RequestMapping(value = "/menu/{id}", method = RequestMethod.GET)
   @ResponseBody
   public Plats getPlatById(@PathVariable("id") Long id) {
-    return repository.findById(id).get();
+    return pltrep.findById(id).get();
   }
   
   @RequestMapping(value = "/menu/{id}", method = RequestMethod.PUT)
   @ResponseBody
   public void modifyPlatById(@PathVariable("id") Long id, @Valid @RequestBody Plats Plats) {
     Plats.setId(id);
-    repository.save(Plats);
+    pltrep.save(Plats);
   }
   
   @RequestMapping(value = "/menu", method = RequestMethod.POST)
   @ResponseBody
   public Plats createPlat(@Valid @RequestBody Plats Plats) {
-    repository.save(Plats);
+	  pltrep.save(Plats);
     return Plats;
   }
   
   @RequestMapping(value = "/menu/{id}", method = RequestMethod.DELETE)
   @ResponseBody
   public void deletePlat(@PathVariable Long id) {
-    repository.delete(repository.findById(id).get());
+	  pltrep.delete(pltrep.findById(id).get());
   }
 }

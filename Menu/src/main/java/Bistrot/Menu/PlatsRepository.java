@@ -1,7 +1,7 @@
-package Bistrot.Menu.repositories;
+package Bistrot.Menu;
 
 
-import Bistrot.Menu.models.Plats;
+import Bistrot.Menu.Plats;
 
 import java.util.Optional;
 
